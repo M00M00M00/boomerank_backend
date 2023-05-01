@@ -1,28 +1,13 @@
 package boomerank.service;
 
 import boomerank.dto.RankingFilterDto;
-import boomerank.repository.ApartRepository;
-import boomerank.repository.JdbcApartRepository;
-import org.springframework.stereotype.Service;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
-import java.util.Map;
+import static org.junit.jupiter.api.Assertions.*;
 
-@Service
-public class ApartService {
-    private final ApartRepository apartRepository;
-    private final JdbcApartRepository jdbcApartRepository;
-
-    public ApartService(ApartRepository apartRepository, JdbcApartRepository jdbcApartRepository) {
-        this.apartRepository = apartRepository;
-        this.jdbcApartRepository = jdbcApartRepository;
-    }
-
-    public List<Map<String, Object>> getRankWithFilters(RankingFilterDto filterDto) {
-        String query = makeQuery(filterDto);
-        List<Map<String, Object>> rankingWithFilters = jdbcApartRepository.getRankingWithFilters(query);
-        return rankingWithFilters;
-    }
+class ApartServiceTest {
 
     private static String makeQuery(RankingFilterDto filterDto){
         String select = "select ";
@@ -42,8 +27,14 @@ public class ApartService {
         return query;
     }
 
+    @Test
+    public void queryMakeTest(){
+        RankingFilterDto filterDto = new RankingFilterDto("m", 2, 12, "desc");
 
-    public List<Map<String, Object>> getTransRankWithFilters(RankingFilterDto filterDto) {
-        return null;
+        String query = makeQuery(filterDto);
+
+        System.out.println(query);
+
     }
+
 }
