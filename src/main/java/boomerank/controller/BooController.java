@@ -37,4 +37,10 @@ public class BooController {
         List<Map<String, Object>> rankWithFilters = apartService.getTransRankWithFilters(filterDto);
         return null;
     }
+
+    @GetMapping("/healthCheck")
+    @ResponseBody
+    public String healthCheck() {
+        return "OK";
+    }
 }
