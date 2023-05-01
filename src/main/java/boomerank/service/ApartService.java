@@ -38,7 +38,7 @@ public class ApartService {
         String group = "group by geo_1";
         if (filterDto.getGeo() == 2) group += ", geo_2";
         if (filterDto.getGeo() == 3) group += ", geo_2, geo_3";
-        String query = select + rank + selectGeo + avg + avg2532 + from + where + group + ";";
+        String query = select + rank + selectGeo + avg + avg2532 + from + where + group;
         return query;
     }
 
