@@ -1,4 +1,4 @@
-package boomerank.domain;
+package boomerank.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -18,6 +18,8 @@ public class Apart {
     private String geo2;
     @Column(name = "geo_3")
     private String geo3;
+    @Column(name = "geo_4")
+    private String geo4;
     @Column(name = "apt_name")
     private String aptName;
     @Column(name = "apt_trans_date")
