@@ -8,27 +8,25 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
-@EnableSwagger2
 public class SwaggerConfig {
 
     @Bean
-    public Docket restAPI(){
-        return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("boomerank")
-                .apiInfo(this.apiInfo())
+    public Docket api() {
+        return new Docket(DocumentationType.OAS_30)
+                .useDefaultResponseMessages(false)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("boomerank.controller"))
-                .paths(PathSelectors.ant("/ranking/**"))
-                .build();
+                .paths(PathSelectors.any())
+                .build()
+                .apiInfo(apiInfo());
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Boomerank Spring Boot REST API")
-                .version("1.0.0")
-                .description("부메랑의 swagger api 입니다.")
+                .title("Boomerank Swagger")
+                .description("practice swagger config")
+                .version("1.0")
                 .build();
     }
 
