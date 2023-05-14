@@ -16,10 +16,11 @@ public class SwaggerConfig {
     @Bean
     public Docket restAPI(){
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
+                .groupName("boomerank")
+                .apiInfo(this.apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("boomerank"))
-                .paths(PathSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("boomerank.controller"))
+                .paths(PathSelectors.ant("/ranking/**"))
                 .build();
     }
 
