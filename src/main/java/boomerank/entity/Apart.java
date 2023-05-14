@@ -1,8 +1,8 @@
-package boomerank.domain;
+package boomerank.entity;
 
-import jakarta.persistence.*;
 import lombok.Data;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Data
@@ -34,6 +34,7 @@ public class Apart {
     private int aptFloor;
     @Column(name = "avg_pyeong_price")
     private double avgPyeongPrice;
+
 
     public String toString(){
         return geo1 + geo2 + aptName + ":" + aptPrice;
