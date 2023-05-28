@@ -94,7 +94,7 @@ public interface ApartRepository extends JpaRepository<Apart, Long> {
 
     @Query(
             nativeQuery = true,
-            value = "select b.geo_1, b.geo_2, b.geo_3, b.apt_name, b.apt_area_pyeong, avg(apt_price) as avgp " +
+            value = "select b.geo_1, b.geo_2, b.geo_3, b.apt_name, b.apt_area_pyeong, avg(apt_price) as price " +
                     "from boo b " +
                     "where b.apt_trans_date >= :date and b.apt_area_pyeong >= :area and b.apt_area_pyeong < :area + 10 and b.geo_1 = :geo1Name " +
                     "group by b.geo_1, b.geo_1, b.geo_2, b.geo_3, b.apt_name, b.apt_area_pyeong"
@@ -103,7 +103,7 @@ public interface ApartRepository extends JpaRepository<Apart, Long> {
 
     @Query(
             nativeQuery = true,
-            value = "select b.geo_1, b.geo_2, b.geo_3, b.apt_name, b.apt_area_pyeong, avg(apt_price) as avgp " +
+            value = "select b.geo_1, b.geo_2, b.geo_3, b.apt_name, b.apt_area_pyeong, avg(apt_price) as price " +
                     "from boo b " +
                     "where b.apt_trans_date >= :date and b.apt_area_pyeong >= :area and b.apt_area_pyeong < :area + 10 and b.geo_1 = :geo1Name and b.geo_2 = :geo2Name " +
                     "group by b.geo_1, b.geo_1, b.geo_2, b.geo_3, b.apt_name, b.apt_area_pyeong"
@@ -112,7 +112,7 @@ public interface ApartRepository extends JpaRepository<Apart, Long> {
 
     @Query(
             nativeQuery = true,
-            value = "select b.geo_1, b.geo_2, b.geo_3, b.apt_name, b.apt_area_pyeong, avg(apt_price) as avgp " +
+            value = "select b.geo_1, b.geo_2, b.geo_3, b.apt_name, b.apt_area_pyeong, avg(apt_price) as price " +
                     "from boo b " +
                     "where b.apt_trans_date >= :date and b.apt_area_pyeong >= :area and b.apt_area_pyeong < :area + 10 and b.geo_1 = :geo1Name and b.geo_2 = :geo2Name and b.geo_3 = :geo3Name " +
                     "group by b.geo_1, b.geo_1, b.geo_2, b.geo_3, b.apt_name, b.apt_area_pyeong"
@@ -157,36 +157,48 @@ public interface ApartRepository extends JpaRepository<Apart, Long> {
             "WHERE curr.geo_2 = befo.geo_2", nativeQuery = true)
     Page<Map<String, Object>> avgIncPriceGroupByGeo1Name2(@Param("geo1Name") String geo1Name, @Param("nowStart") LocalDate nowStart, @Param("now") LocalDate now, @Param("befStart") LocalDate befStart, @Param("before") LocalDate before, Pageable pageable);
 
+    @Query(
+            nativeQuery = true,
+            value = "select b.geo_1 as geo1, " +
+                    "avg(b.avg_pyeong_price) as avgp " +
+                    "from boo b " +
+                    "where b.apt_trans_date >= :start and b.apt_trans_date <= :end " +
+                    "group by b.geo_1"
+    )
+    List<IncResponse> avgPriceInc0(LocalDate start, LocalDate end);
 
     @Query(
             nativeQuery = true,
-            value = "select year(b.apt_trans_date) as year, month(b.apt_trans_date) as month, avg(b.avg_pyeong_price) as avgPrice, count(b.apt_trans_date) as count " +
+            value = "select b.geo_1 as geo1, " +
+                    "b.geo_2 as geo2, " +
+                    "avg(b.avg_pyeong_price) as avgp " +
                     "from boo b " +
-                    "where b.geo_1 = :geo1Name " +
-                    "group by year(b.apt_trans_date), month(b.apt_trans_date) " +
-                    "order by 1 desc, 2 desc"
+                    "where b.geo_1 = :geo1 and b.apt_trans_date >= :start and b.apt_trans_date <= :end " +
+                    "group by b.geo_1, b.geo_2"
     )
-    List<ChartResponse> getChart1(String geo1Name);
-
+    List<IncResponse> avgPriceInc1(String geo1, LocalDate start, LocalDate end);
     @Query(
             nativeQuery = true,
-            value = "select year(b.apt_trans_date) as year, month(b.apt_trans_date) as month, avg(b.avg_pyeong_price) as avgPrice, count(b.apt_trans_date) as count " +
+            value = "select b.geo_1 as geo1, " +
+                    "b.geo_2 as geo2, " +
+                    "b.geo_3 as geo3, " +
+                    "avg(b.avg_pyeong_price) as avgp " +
                     "from boo b " +
-                    "where b.geo_1 = :geo1Name and b.geo_2 = :geo2Name " +
-                    "group by year(b.apt_trans_date), month(b.apt_trans_date) " +
-                    "order by 1 desc, 2 desc"
+                    "where b.geo_1 = :geo1 and b.geo_2 = :geo2 and b.apt_trans_date >= :start and b.apt_trans_date <= :end " +
+                    "group by b.geo_1, b.geo_2, b.geo_3"
     )
-    List<ChartResponse> getChart2(String geo1Name, String geo2Name);
-
+    List<IncResponse> avgPriceInc2(String geo1, String geo2, LocalDate start, LocalDate end);
     @Query(
             nativeQuery = true,
-            value = "select year(b.apt_trans_date) as year, month(b.apt_trans_date) as month, avg(b.avg_pyeong_price) as avgPrice, count(b.apt_trans_date) as count " +
+            value = "select b.geo_1 as geo1, " +
+                    "b.geo_2 as geo2, " +
+                    "b.geo_3 as geo3, " +
+                    "b.apt_name as aptName, " +
+                    "avg(b.avg_pyeong_price) as avgp " +
                     "from boo b " +
-                    "where b.geo_1 = :geo1Name and b.geo_2 = :geo2Name and b.geo_3 = :geo3Name " +
-                    "group by year(b.apt_trans_date), month(b.apt_trans_date) " +
-                    "order by 1 desc, 2 desc"
+                    "where b.geo_1 = :geo1 and b.geo_2 = :geo2 and b.geo_3 = :geo3 and b.apt_trans_date >= :start and b.apt_trans_date <= :end " +
+                    "group by b.geo_1, b.geo_2, b.geo_3, b.apt_name"
     )
-    List<ChartResponse> getChart3(String geo1Name, String geo2Name, String geo3Name);
-
+    List<IncResponse> avgPriceInc3(String geo1, String geo2, String geo3, LocalDate start, LocalDate end);
 }
 

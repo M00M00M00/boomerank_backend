@@ -1,5 +1,6 @@
 package boomerank.response;
 
+import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
@@ -11,7 +12,10 @@ import java.util.Map;
 @ToString
 @AllArgsConstructor
 public class PageResponseDto {
+    @ApiParam(value = "총 페이지 수")
     private int totalPage;
+    @ApiParam(value = "결과값 전체 항목수")
     private long totalElements;
+    @ApiParam(value = "리턴값")
     private List<Map<String, Object>> retList;
 }
