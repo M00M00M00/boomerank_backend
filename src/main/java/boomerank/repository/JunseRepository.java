@@ -13,15 +13,15 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public interface ApartRepository extends JpaRepository<Apart, Long> {
+public interface JunseRepository extends JpaRepository<Apart, Long> {
     @Query(
             nativeQuery = true,
             value = "select b.geo_1, avg(b.avg_pyeong_price) as avgp, count(b.geo_1) as transcount " +
-                    "from boo b " +
+                    "from junse b " +
                     "where b.apt_trans_date >= :date " +
                     "group by b.geo_1",
             countQuery = "select b.geo_1, avg(b.avg_pyeong_price) as avgp, count(b.geo_1) as transcount " +
-                    "from boo b " +
+                    "from junse b " +
                     "where b.apt_trans_date >= :date " +
                     "group by b.geo_1"
     )
@@ -30,11 +30,11 @@ public interface ApartRepository extends JpaRepository<Apart, Long> {
     @Query(
             nativeQuery = true,
             value = "select b.geo_1, b.geo_2, avg(b.avg_pyeong_price) as avgp, count(b.geo_2) as transcount " +
-                    "from boo b " +
+                    "from junse b " +
                     "where b.apt_trans_date >= :date " +
                     "group by b.geo_1, b.geo_2",
             countQuery = "select b.geo_1, b.geo_2, avg(b.avg_pyeong_price) as avgp, count(b.geo_2) as transcount " +
-                    "from boo b " +
+                    "from junse b " +
                     "where b.apt_trans_date >= :date " +
                     "group by b.geo_1, b.geo_2"
     )
@@ -43,11 +43,11 @@ public interface ApartRepository extends JpaRepository<Apart, Long> {
     @Query(
             nativeQuery = true,
             value = "select b.geo_1, geo_2, geo_3, avg(b.avg_pyeong_price) as avgp, count(b.geo_3) as transcount " +
-                    "from boo b " +
+                    "from junse b " +
                     "where b.apt_trans_date >= :date " +
                     "group by b.geo_1, geo_2, geo_3",
             countQuery = "select b.geo_1, geo_2, geo_3, avg(b.avg_pyeong_price) as avgp, count(b.geo_3) as transcount " +
-                    "from boo b " +
+                    "from junse b " +
                     "where b.apt_trans_date >= :date " +
                     "group by b.geo_1, geo_2, geo_3"
     )
@@ -56,11 +56,11 @@ public interface ApartRepository extends JpaRepository<Apart, Long> {
     @Query(
             nativeQuery = true,
             value = "select b.geo_1, b.geo_2, avg(b.avg_pyeong_price) as avgp, count(b.geo_2) as transcount " +
-                    "from boo b " +
+                    "from junse b " +
                     "where b.apt_trans_date >= :date and b.geo_1 = :geo1Name " +
                     "group by b.geo_2 ",
             countQuery = "select b.geo_1, b.geo_2, avg(b.avg_pyeong_price) as avgp, count(b.geo_2) as transcount " +
-                    "from boo b " +
+                    "from junse b " +
                     "where b.apt_trans_date >= :date and b.geo_1 = :geo1Name " +
                     "group by b.geo_2 "
     )
@@ -69,11 +69,11 @@ public interface ApartRepository extends JpaRepository<Apart, Long> {
     @Query(
             nativeQuery = true,
             value = "select b.geo_1, b.geo_2, b.geo_3, avg(b.avg_pyeong_price) as avgp, count(b.geo_3) as transcount " +
-                    "from boo b " +
+                    "from junse b " +
                     "where b.apt_trans_date >= :date and b.geo_1 = :geo1Name and b.geo_2 = :geo2Name " +
                     "group by b.geo_3 ",
             countQuery = "select b.geo_1, b.geo_2, b.geo_3, avg(b.avg_pyeong_price) as avgp, count(b.geo_3) as transcount " +
-                    "from boo b " +
+                    "from junse b " +
                     "where b.apt_trans_date >= :date and b.geo_1 = :geo1Name and b.geo_2 = :geo2Name " +
                     "group by b.geo_3 "
     )
@@ -82,11 +82,11 @@ public interface ApartRepository extends JpaRepository<Apart, Long> {
     @Query(
             nativeQuery = true,
             value = "select b.geo_1, b.geo_2, b.geo_3, b.apt_name, avg(b.avg_pyeong_price) as avgp, count(b.apt_name) as transcount " +
-                    "from boo b " +
+                    "from junse b " +
                     "where b.apt_trans_date >= :date and b.geo_1 = :geo1Name and b.geo_2 = :geo2Name and b.geo_3 = :geo3Name " +
                     "group by b.apt_name ",
             countQuery = "select b.geo_1, b.geo_2, b.geo_3, b.apt_name, avg(b.avg_pyeong_price) as avgp, count(b.apt_name) as transcount " +
-                    "from boo b " +
+                    "from junse b " +
                     "where b.apt_trans_date >= :date and b.geo_1 = :geo1Name and b.geo_2 = :geo2Name and b.geo_3 = :geo3Name " +
                     "group by b.apt_name "
     )
@@ -95,7 +95,7 @@ public interface ApartRepository extends JpaRepository<Apart, Long> {
     @Query(
             nativeQuery = true,
             value = "select b.geo_1, b.geo_2, b.geo_3, b.apt_name, b.apt_area_pyeong, avg(apt_price) as price " +
-                    "from boo b " +
+                    "from junse b " +
                     "where b.apt_trans_date >= :date and b.apt_area_pyeong >= :area and b.apt_area_pyeong < :area + 10 and b.geo_1 = :geo1Name " +
                     "group by b.geo_1, b.geo_1, b.geo_2, b.geo_3, b.apt_name, b.apt_area_pyeong"
     )
@@ -104,7 +104,7 @@ public interface ApartRepository extends JpaRepository<Apart, Long> {
     @Query(
             nativeQuery = true,
             value = "select b.geo_1, b.geo_2, b.geo_3, b.apt_name, b.apt_area_pyeong, avg(apt_price) as price " +
-                    "from boo b " +
+                    "from junse b " +
                     "where b.apt_trans_date >= :date and b.apt_area_pyeong >= :area and b.apt_area_pyeong < :area + 10 and b.geo_1 = :geo1Name and b.geo_2 = :geo2Name " +
                     "group by b.geo_1, b.geo_1, b.geo_2, b.geo_3, b.apt_name, b.apt_area_pyeong"
     )
@@ -113,7 +113,7 @@ public interface ApartRepository extends JpaRepository<Apart, Long> {
     @Query(
             nativeQuery = true,
             value = "select b.geo_1, b.geo_2, b.geo_3, b.apt_name, b.apt_area_pyeong, avg(apt_price) as price " +
-                    "from boo b " +
+                    "from junse b " +
                     "where b.apt_trans_date >= :date and b.apt_area_pyeong >= :area and b.apt_area_pyeong < :area + 10 and b.geo_1 = :geo1Name and b.geo_2 = :geo2Name and b.geo_3 = :geo3Name " +
                     "group by b.geo_1, b.geo_1, b.geo_2, b.geo_3, b.apt_name, b.apt_area_pyeong"
     )
@@ -123,7 +123,7 @@ public interface ApartRepository extends JpaRepository<Apart, Long> {
             nativeQuery = true,
             value = "select b.geo_1 as geo1, " +
                     "avg(b.avg_pyeong_price) as avgp " +
-                    "from boo b " +
+                    "from junse b " +
                     "where b.apt_trans_date >= :start and b.apt_trans_date <= :end " +
                     "group by b.geo_1"
     )
@@ -134,7 +134,7 @@ public interface ApartRepository extends JpaRepository<Apart, Long> {
             value = "select b.geo_1 as geo1, " +
                     "b.geo_2 as geo2, " +
                     "avg(b.avg_pyeong_price) as avgp " +
-                    "from boo b " +
+                    "from junse b " +
                     "where b.geo_1 = :geo1 and b.apt_trans_date >= :start and b.apt_trans_date <= :end " +
                     "group by b.geo_1, b.geo_2"
     )
@@ -145,7 +145,7 @@ public interface ApartRepository extends JpaRepository<Apart, Long> {
                     "b.geo_2 as geo2, " +
                     "b.geo_3 as geo3, " +
                     "avg(b.avg_pyeong_price) as avgp " +
-                    "from boo b " +
+                    "from junse b " +
                     "where b.geo_1 = :geo1 and b.geo_2 = :geo2 and b.apt_trans_date >= :start and b.apt_trans_date <= :end " +
                     "group by b.geo_1, b.geo_2, b.geo_3"
     )
@@ -157,7 +157,7 @@ public interface ApartRepository extends JpaRepository<Apart, Long> {
                     "b.geo_3 as geo3, " +
                     "b.apt_name as aptName, " +
                     "avg(b.avg_pyeong_price) as avgp " +
-                    "from boo b " +
+                    "from junse b " +
                     "where b.geo_1 = :geo1 and b.geo_2 = :geo2 and b.geo_3 = :geo3 and b.apt_trans_date >= :start and b.apt_trans_date <= :end " +
                     "group by b.geo_1, b.geo_2, b.geo_3, b.apt_name"
     )
@@ -167,7 +167,7 @@ public interface ApartRepository extends JpaRepository<Apart, Long> {
             nativeQuery = true,
             value = "select b.geo_1 as geo1, " +
                     "avg(b.apt_price) as avgp " +
-                    "from boo b " +
+                    "from junse b " +
                     "where b.apt_trans_date > :date and b.apt_area_pyeong between 20 and 30 " +
                     "group by geo_1"
     )
@@ -178,7 +178,7 @@ public interface ApartRepository extends JpaRepository<Apart, Long> {
             value = "select b.geo_1 as geo1, " +
                     "b.geo_2 as geo2, " +
                     "avg(b.apt_price) as avgp " +
-                    "from boo b " +
+                    "from junse b " +
                     "where b.apt_trans_date > :date and b.geo_1 = :geo1 and b.apt_area_pyeong between 20 and 30 " +
                     "group by b.geo_1, b.geo_2"
     )
@@ -190,7 +190,7 @@ public interface ApartRepository extends JpaRepository<Apart, Long> {
                     "b.geo_2 as geo2, " +
                     "b.geo_3 as geo3, " +
                     "avg(b.apt_price) as avgp " +
-                    "from boo b " +
+                    "from junse b " +
                     "where b.apt_trans_date > :date and b.geo_1 = :geo1 and b.geo_2 = :geo2 and b.apt_area_pyeong between 20 and 30 " +
                     "group by b.geo_1, b.geo_2, b.geo_3"
     )
@@ -203,11 +203,10 @@ public interface ApartRepository extends JpaRepository<Apart, Long> {
                     "b.geo_3 as geo3, " +
                     "b.apt_name as aptName, " +
                     "avg(b.apt_price) as avgp " +
-                    "from boo b " +
+                    "from junse b " +
                     "where b.apt_trans_date > :date and b.geo_1 = :geo1 and b.geo_2 = :geo2 and b.geo_3 = :geo3 and b.apt_area_pyeong between 20 and 30 " +
                     "group by b.geo_1, b.geo_2, b.geo_3, b.apt_name"
     )
     List<AvgpResponse> getAvg20Prices3(LocalDate date, String geo1, String geo2, String geo3);
-
 }
 

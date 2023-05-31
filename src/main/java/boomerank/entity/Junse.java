@@ -7,8 +7,8 @@ import java.time.LocalDate;
 
 @Data
 @Entity
-@Table(name = "boo")
-public class Apart {
+@Table(name = "junse")
+public class Junse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,4 +34,3 @@ public class Apart {
         return geo1 + geo2 + aptName + ":" + aptPrice;
     }
 }
-
