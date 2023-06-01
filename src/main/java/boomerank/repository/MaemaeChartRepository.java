@@ -6,13 +6,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
-public interface JunseChartRepository extends JpaRepository<Apart, Long>, ChartRepository {
+public interface MaemaeChartRepository extends JpaRepository<Apart, Long>, ChartRepository {
     @Query(
             nativeQuery = true,
             value = "select year(b.apt_trans_date) as year, avg(b.avg_pyeong_price) as avgPrice, count(b.apt_trans_date) as count " +
-                    "from junse b " +
+                    "from boo b " +
                     "where b.geo_1 = :geo1Name " +
                     "group by year(b.apt_trans_date) " +
                     "order by 1 desc"
@@ -22,7 +23,7 @@ public interface JunseChartRepository extends JpaRepository<Apart, Long>, ChartR
     @Query(
             nativeQuery = true,
             value = "select year(b.apt_trans_date) as year, avg(b.avg_pyeong_price) as avgPrice, count(b.apt_trans_date) as count " +
-                    "from junse b " +
+                    "from boo b " +
                     "where b.geo_1 = :geo1Name and b.geo_2 = :geo2Name " +
                     "group by year(b.apt_trans_date) " +
                     "order by 1 desc"
@@ -32,7 +33,7 @@ public interface JunseChartRepository extends JpaRepository<Apart, Long>, ChartR
     @Query(
             nativeQuery = true,
             value = "select year(b.apt_trans_date) as year, avg(b.avg_pyeong_price) as avgPrice, count(b.apt_trans_date) as count " +
-                    "from junse b " +
+                    "from boo b " +
                     "where b.geo_1 = :geo1Name and b.geo_2 = :geo2Name and b.geo_3 = :geo3Name " +
                     "group by year(b.apt_trans_date) " +
                     "order by 1 desc"
@@ -42,7 +43,7 @@ public interface JunseChartRepository extends JpaRepository<Apart, Long>, ChartR
     @Query(
             nativeQuery = true,
             value = "select year(b.apt_trans_date) as year, month(b.apt_trans_date) as month, avg(b.avg_pyeong_price) as avgPrice, count(b.apt_trans_date) as count " +
-                    "from junse b " +
+                    "from boo b " +
                     "where b.geo_1 = :geo1Name " +
                     "group by year(b.apt_trans_date), month(b.apt_trans_date) " +
                     "order by 1 desc, 2 desc"
@@ -52,7 +53,7 @@ public interface JunseChartRepository extends JpaRepository<Apart, Long>, ChartR
     @Query(
             nativeQuery = true,
             value = "select year(b.apt_trans_date) as year, month(b.apt_trans_date) as month, avg(b.avg_pyeong_price) as avgPrice, count(b.apt_trans_date) as count " +
-                    "from junse b " +
+                    "from boo b " +
                     "where b.geo_1 = :geo1Name and b.geo_2 = :geo2Name " +
                     "group by year(b.apt_trans_date), month(b.apt_trans_date) " +
                     "order by 1 desc, 2 desc"
@@ -62,7 +63,7 @@ public interface JunseChartRepository extends JpaRepository<Apart, Long>, ChartR
     @Query(
             nativeQuery = true,
             value = "select year(b.apt_trans_date) as year, month(b.apt_trans_date) as month, avg(b.avg_pyeong_price) as avgPrice, count(b.apt_trans_date) as count " +
-                    "from junse b " +
+                    "from boo b " +
                     "where b.geo_1 = :geo1Name and b.geo_2 = :geo2Name and b.geo_3 = :geo3Name " +
                     "group by year(b.apt_trans_date), month(b.apt_trans_date) " +
                     "order by 1 desc, 2 desc"
@@ -72,7 +73,7 @@ public interface JunseChartRepository extends JpaRepository<Apart, Long>, ChartR
     @Query(
             nativeQuery = true,
             value = "select year(b.apt_trans_date) as year, avg(b.avg_pyeong_price) as avgPrice " +
-                    "from junse b " +
+                    "from boo b " +
                     "where b.geo_1 = :geo1 and b.apt_area_pyeong between 20 and 30 " +
                     "group by year(b.apt_trans_date) " +
                     "order by 1 desc, 2 desc"
@@ -82,7 +83,7 @@ public interface JunseChartRepository extends JpaRepository<Apart, Long>, ChartR
     @Query(
             nativeQuery = true,
             value = "select year(b.apt_trans_date) as year, avg(b.avg_pyeong_price) as avgPrice " +
-                    "from junse b " +
+                    "from boo b " +
                     "where b.geo_1 = :geo1 and b.geo_2 = :geo2 and b.apt_area_pyeong between 20 and 30 " +
                     "group by year(b.apt_trans_date) " +
                     "order by 1 desc"
@@ -92,7 +93,7 @@ public interface JunseChartRepository extends JpaRepository<Apart, Long>, ChartR
     @Query(
             nativeQuery = true,
             value = "select year(b.apt_trans_date) as year, avg(b.avg_pyeong_price) as avgPrice " +
-                    "from junse b " +
+                    "from boo b " +
                     "where b.geo_1 = :geo1 and b.geo_2 = :geo2 and b.geo_3 = :geo3 and b.apt_area_pyeong between 20 and 30 " +
                     "group by year(b.apt_trans_date) " +
                     "order by 1 desc"
@@ -102,7 +103,7 @@ public interface JunseChartRepository extends JpaRepository<Apart, Long>, ChartR
     @Query(
             nativeQuery = true,
             value = "select year(b.apt_trans_date) as year, month(b.apt_trans_date) as month, avg(b.avg_pyeong_price) as avgPrice " +
-                    "from junse b " +
+                    "from boo b " +
                     "where b.geo_1 = :geo1 and b.apt_area_pyeong between 20 and 30 " +
                     "group by year(b.apt_trans_date), month(b.apt_trans_date) " +
                     "order by 1 desc, 2 desc"
@@ -112,7 +113,7 @@ public interface JunseChartRepository extends JpaRepository<Apart, Long>, ChartR
     @Query(
             nativeQuery = true,
             value = "select year(b.apt_trans_date) as year, month(b.apt_trans_date) as month, avg(b.avg_pyeong_price) as avgPrice " +
-                    "from junse b " +
+                    "from boo b " +
                     "where b.geo_1 = :geo1 and b.geo_2 = :geo2 and b.apt_area_pyeong between 20 and 30 " +
                     "group by year(b.apt_trans_date), month(b.apt_trans_date) " +
                     "order by 1 desc, 2 desc"
@@ -122,11 +123,10 @@ public interface JunseChartRepository extends JpaRepository<Apart, Long>, ChartR
     @Query(
             nativeQuery = true,
             value = "select year(b.apt_trans_date) as year, month(b.apt_trans_date) as month, avg(b.avg_pyeong_price) as avgPrice " +
-                    "from junse b " +
+                    "from boo b " +
                     "where b.geo_1 = :geo1 and b.geo_2 = :geo2 and b.geo_3 = :geo3 and b.apt_area_pyeong between 20 and 30 " +
                     "group by year(b.apt_trans_date), month(b.apt_trans_date) " +
                     "order by 1 desc, 2 desc"
     )
     List<ChartResponse> getAvg20Month3(String geo1, String geo2, String geo3);
-
 }

@@ -1,6 +1,7 @@
 package boomerank.response;
 
 import boomerank.dto.ChartDto;
+import boomerank.dto.ChartFilterDto;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,8 +9,8 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class ChartResponseDto {
-    @ApiParam(value = "첫번째 차트")
+    @ApiParam(value = "차트 정보")
+    ChartFilterDto chartFilterDto;
+    @ApiParam(value = "차트")
     ChartDto chart1;
-    @ApiParam(value = "두번째 차트")
-    ChartDto chart2;
 }
