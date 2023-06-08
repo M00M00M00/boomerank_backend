@@ -1,7 +1,8 @@
 package boomerank.repository;
 
+import boomerank.repository.queryresponse.ChartResponse;
+
 import java.util.List;
-import java.util.Map;
 
 public interface ChartRepository {
     List<ChartResponse> getChart1Year(String geo1Name);

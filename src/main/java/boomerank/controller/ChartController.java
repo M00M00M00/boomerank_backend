@@ -2,15 +2,11 @@ package boomerank.controller;
 
 import boomerank.dto.ChartDto;
 import boomerank.dto.ChartFilterDto;
-import boomerank.repository.ChartResponse;
-import boomerank.response.ChartResponseDto;
 import boomerank.service.ChartService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/chart")

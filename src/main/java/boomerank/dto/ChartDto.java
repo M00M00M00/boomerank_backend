@@ -1,6 +1,6 @@
 package boomerank.dto;
 
-import boomerank.repository.ChartResponse;
+import boomerank.repository.queryresponse.ChartResponse;
 import boomerank.response.JunseRateChartReponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -5,8 +5,7 @@ import boomerank.dto.ChartFilterDto;
 import boomerank.repository.ChartRepository;
 import boomerank.repository.MaemaeChartRepository;
 import boomerank.repository.JunseChartRepository;
-import boomerank.response.ChartResponseDto;
-import boomerank.repository.ChartResponse;
+import boomerank.repository.queryresponse.ChartResponse;
 import boomerank.response.JunseRateChartReponse;
 import org.springframework.stereotype.Service;
 

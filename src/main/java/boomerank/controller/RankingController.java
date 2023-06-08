@@ -1,7 +1,7 @@
 package boomerank.controller;
 
 import boomerank.dto.JunseRateDto;
-import boomerank.repository.JunseRateResponse;
+import boomerank.repository.queryresponse.JunseRateResponse;
 import boomerank.response.IncRateAmountDto;
 import boomerank.response.PageResponseDto;
 import boomerank.dto.RankingFilterDto;
@@ -87,7 +87,7 @@ public class RankingController {
         LocalDate date = LocalDate.now().minusMonths(filterDto.getDate());
         int area = filterDto.getArea();
 
-        Pageable pageable = getPageable(filterDto.getOrder(), filterDto.getPage(), filterDto.getSize(), "price");
+        Pageable pageable = getPageable(filterDto.getOrder(), filterDto.getPage(), filterDto.getSize(), "avgp");
         return rankingService.getApartPriceRankWithFilters(type, geo, geo1Name, geo2Name, geo3Name, area, date, pageable);
     }
     @ApiOperation(value = "지역별 n개월 전 대비 평당가 상승액/상승률 순위", notes = "지역별 아파트들의 n개월전 대비 상승액/상승률 순위를 반환")

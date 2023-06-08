@@ -1,4 +1,4 @@
-package boomerank.repository;
+package boomerank.repository.queryresponse;
 
 public interface IncResponse {
     String getGeo1();

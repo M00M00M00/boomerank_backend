@@ -1,4 +1,4 @@
-package boomerank.repository;
+package boomerank.repository.queryresponse;
 
 public interface AvgpResponse {
     String getGeo1();
@@ -6,4 +6,5 @@ public interface AvgpResponse {
     String getGeo3();
     String getAptName();
     Double getAvgp();
+    Integer getTranscount();
 }

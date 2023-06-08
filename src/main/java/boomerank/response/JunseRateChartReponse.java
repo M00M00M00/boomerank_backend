@@ -1,6 +1,5 @@
 package boomerank.response;
 
-import boomerank.repository.ChartResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

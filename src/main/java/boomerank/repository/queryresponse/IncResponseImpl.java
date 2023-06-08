@@ -1,4 +1,6 @@
-package boomerank.repository;
+package boomerank.repository.queryresponse;
+
+import boomerank.repository.queryresponse.IncResponse;
 
 public class IncResponseImpl {
     String geo1;

@@ -1,5 +1,7 @@
 package boomerank.response;
 
+import boomerank.repository.queryresponse.AvgpResponse;
+import boomerank.repository.queryresponse.AvgpResponseImpl;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,5 +19,6 @@ public class PageResponseDto {
     @ApiParam(value = "결과값 전체 항목수")
     private long totalElements;
     @ApiParam(value = "리턴값")
-    private List<Map<String, Object>> retList;
+    private List<AvgpResponseImpl> retList;
+
 }

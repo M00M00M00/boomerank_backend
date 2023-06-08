@@ -1,11 +1,12 @@
 package boomerank.repository;
 
 import boomerank.entity.Apart;
+import boomerank.repository.queryresponse.AvgpResponse;
+import boomerank.repository.queryresponse.IncResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -16,108 +17,162 @@ import java.util.Map;
 public interface ApartRepository extends JpaRepository<Apart, Long> {
     @Query(
             nativeQuery = true,
-            value = "select b.geo_1, avg(b.avg_pyeong_price) as avgp, count(b.geo_1) as transcount " +
+            value = "select b.geo_1 as geo1, " +
+                    "avg(b.avg_pyeong_price) as avgp, " +
+                    "count(b.geo_1) as transcount " +
                     "from boo b " +
                     "where b.apt_trans_date >= :date " +
                     "group by b.geo_1",
-            countQuery = "select b.geo_1, avg(b.avg_pyeong_price) as avgp, count(b.geo_1) as transcount " +
+            countQuery = "select b.geo_1 as geo1, " +
+                    "avg(b.avg_pyeong_price) as avgp, " +
+                    "count(b.geo_1) as transcount " +
                     "from boo b " +
                     "where b.apt_trans_date >= :date " +
                     "group by b.geo_1"
     )
-    Page<Map<String, Object>> avgPriceGroupByGeo1(LocalDate date, Pageable pageable);
+    Page<AvgpResponse> avgPriceGroupByGeo1(LocalDate date, Pageable pageable);
 
     @Query(
             nativeQuery = true,
-            value = "select b.geo_1, b.geo_2, avg(b.avg_pyeong_price) as avgp, count(b.geo_2) as transcount " +
+            value = "select b.geo_1 as geo1, " +
+                    "b.geo_2 as geo2, " +
+                    "avg(b.avg_pyeong_price) as avgp, " +
+                    "count(b.geo_1) as transcount " +
                     "from boo b " +
                     "where b.apt_trans_date >= :date " +
                     "group by b.geo_1, b.geo_2",
-            countQuery = "select b.geo_1, b.geo_2, avg(b.avg_pyeong_price) as avgp, count(b.geo_2) as transcount " +
+            countQuery = "select b.geo_1 as geo1, " +
+                    "b.geo_2 as geo2, " +
+                    "avg(b.avg_pyeong_price) as avgp, " +
+                    "count(b.geo_1) as transcount " +
                     "from boo b " +
                     "where b.apt_trans_date >= :date " +
                     "group by b.geo_1, b.geo_2"
     )
-    Page<Map<String, Object>> avgPriceGroupByGeo2(LocalDate date, Pageable pageable);
+    Page<AvgpResponse> avgPriceGroupByGeo2(LocalDate date, Pageable pageable);
 
     @Query(
             nativeQuery = true,
-            value = "select b.geo_1, geo_2, geo_3, avg(b.avg_pyeong_price) as avgp, count(b.geo_3) as transcount " +
+            value = "select b.geo_1 as geo1, " +
+                    "b.geo_2 as geo2, " +
+                    "b.geo_3 as geo3, " +
+                    "avg(b.avg_pyeong_price) as avgp, " +
+                    "count(b.geo_1) as transcount " +
                     "from boo b " +
                     "where b.apt_trans_date >= :date " +
-                    "group by b.geo_1, geo_2, geo_3",
-            countQuery = "select b.geo_1, geo_2, geo_3, avg(b.avg_pyeong_price) as avgp, count(b.geo_3) as transcount " +
+                    "group by b.geo_1, b.geo_2, b.geo_3",
+            countQuery = "select b.geo_1 as geo1, " +
+                    "b.geo_2 as geo2, " +
+                    "b.geo_3 as geo3, " +
+                    "avg(b.avg_pyeong_price) as avgp, " +
+                    "count(b.geo_1) as transcount " +
                     "from boo b " +
                     "where b.apt_trans_date >= :date " +
-                    "group by b.geo_1, geo_2, geo_3"
+                    "group by b.geo_1, b.geo_2, b.geo_3"
     )
-    Page<Map<String, Object>> avgPriceGroupByGeo3(LocalDate date, Pageable pageable);
+    Page<AvgpResponse> avgPriceGroupByGeo3(LocalDate date, Pageable pageable);
 
     @Query(
             nativeQuery = true,
-            value = "select b.geo_1, b.geo_2, avg(b.avg_pyeong_price) as avgp, count(b.geo_2) as transcount " +
+            value = "select b.geo_1 as geo1, " +
+                    "b.geo_2 as geo2, " +
+                    "avg(b.avg_pyeong_price) as avgp, " +
+                    "count(b.geo_1) as transcount " +
                     "from boo b " +
                     "where b.apt_trans_date >= :date and b.geo_1 = :geo1Name " +
-                    "group by b.geo_2 ",
-            countQuery = "select b.geo_1, b.geo_2, avg(b.avg_pyeong_price) as avgp, count(b.geo_2) as transcount " +
+                    "group by b.geo_2",
+            countQuery = "select b.geo_1 as geo1, " +
+                    "b.geo_2 as geo2, " +
+                    "avg(b.avg_pyeong_price) as avgp, " +
+                    "count(b.geo_1) as transcount " +
                     "from boo b " +
                     "where b.apt_trans_date >= :date and b.geo_1 = :geo1Name " +
-                    "group by b.geo_2 "
+                    "group by b.geo_2"
     )
-    Page<Map<String, Object>> avgPriceGroupByGeo1Name(String geo1Name, LocalDate date, Pageable pageable);
+    Page<AvgpResponse> avgPriceGroupByGeo1Name(String geo1Name, LocalDate date, Pageable pageable);
 
     @Query(
             nativeQuery = true,
-            value = "select b.geo_1, b.geo_2, b.geo_3, avg(b.avg_pyeong_price) as avgp, count(b.geo_3) as transcount " +
+            value = "select b.geo_1 as geo1, " +
+                    "b.geo_2 as geo2, " +
+                    "b.geo_3 as geo3, " +
+                    "avg(b.avg_pyeong_price) as avgp, " +
+                    "count(b.geo_3) as transcount " +
                     "from boo b " +
                     "where b.apt_trans_date >= :date and b.geo_1 = :geo1Name and b.geo_2 = :geo2Name " +
                     "group by b.geo_3 ",
-            countQuery = "select b.geo_1, b.geo_2, b.geo_3, avg(b.avg_pyeong_price) as avgp, count(b.geo_3) as transcount " +
+            countQuery = "select b.geo_1 as geo1, " +
+                    "b.geo_2 as geo2, " +
+                    "b.geo_3 as geo3, " +
+                    "avg(b.avg_pyeong_price) as avgp, " +
+                    "count(b.geo_3) as transcount " +
                     "from boo b " +
                     "where b.apt_trans_date >= :date and b.geo_1 = :geo1Name and b.geo_2 = :geo2Name " +
                     "group by b.geo_3 "
     )
-    Page<Map<String, Object>> avgPriceGroupByGeo2Name(String geo1Name, String geo2Name, LocalDate date, Pageable pageable);
+    Page<AvgpResponse> avgPriceGroupByGeo2Name(String geo1Name, String geo2Name, LocalDate date, Pageable pageable);
 
     @Query(
             nativeQuery = true,
-            value = "select b.geo_1, b.geo_2, b.geo_3, b.apt_name, avg(b.avg_pyeong_price) as avgp, count(b.apt_name) as transcount " +
+            value = "select b.geo_1 as geo1, " +
+                    "b.geo_2 as geo2, " +
+                    "b.geo_3 as geo3, " +
+                    "b.apt_name as aptName, " +
+                    "avg(b.avg_pyeong_price) as avgp, " +
+                    "count(b.apt_name) as transcount " +
                     "from boo b " +
                     "where b.apt_trans_date >= :date and b.geo_1 = :geo1Name and b.geo_2 = :geo2Name and b.geo_3 = :geo3Name " +
                     "group by b.apt_name ",
-            countQuery = "select b.geo_1, b.geo_2, b.geo_3, b.apt_name, avg(b.avg_pyeong_price) as avgp, count(b.apt_name) as transcount " +
+            countQuery = "select b.geo_1 as geo1, " +
+                    "b.geo_2 as geo2, " +
+                    "b.geo_3 as geo3, " +
+                    "b.apt_name as aptName, " +
+                    "avg(b.avg_pyeong_price) as avgp, " +
+                    "count(b.apt_name) as transcount " +
                     "from boo b " +
                     "where b.apt_trans_date >= :date and b.geo_1 = :geo1Name and b.geo_2 = :geo2Name and b.geo_3 = :geo3Name " +
                     "group by b.apt_name "
     )
-    Page<Map<String, Object>> avgPriceGroupByGeo3Name(String geo1Name, String geo2Name, String geo3Name, LocalDate date, Pageable pageable);
+    Page<AvgpResponse> avgPriceGroupByGeo3Name(String geo1Name, String geo2Name, String geo3Name, LocalDate date, Pageable pageable);
 
     @Query(
             nativeQuery = true,
-            value = "select b.geo_1, b.geo_2, b.geo_3, b.apt_name, b.apt_area_pyeong, avg(apt_price) as price " +
+            value = "select b.geo_1 as geo1, " +
+                    "b.geo_2 as geo2, " +
+                    "b.geo_3 as geo3, " +
+                    "b.apt_name as aptName, " +
+                    "avg(b.apt_price) as avgp " +
                     "from boo b " +
                     "where b.apt_trans_date >= :date and b.apt_area_pyeong >= :area and b.apt_area_pyeong < :area + 10 and b.geo_1 = :geo1Name " +
-                    "group by b.geo_1, b.geo_1, b.geo_2, b.geo_3, b.apt_name, b.apt_area_pyeong"
+                    "group by b.geo_1, b.geo_2, b.geo_3, b.apt_name"
     )
-    Page<Map<String, Object>> avgApartPriceGroupByGeo1Name(double area, String geo1Name, LocalDate date, Pageable pageable);
+    Page<AvgpResponse> avgApartPriceGroupByGeo1Name(double area, String geo1Name, LocalDate date, Pageable pageable);
 
     @Query(
             nativeQuery = true,
-            value = "select b.geo_1, b.geo_2, b.geo_3, b.apt_name, b.apt_area_pyeong, avg(apt_price) as price " +
+            value = "select b.geo_1 as geo1, " +
+                    "b.geo_2 as geo2, " +
+                    "b.geo_3 as geo3, " +
+                    "b.apt_name as aptName, " +
+                    "avg(b.apt_price) as avgp " +
                     "from boo b " +
                     "where b.apt_trans_date >= :date and b.apt_area_pyeong >= :area and b.apt_area_pyeong < :area + 10 and b.geo_1 = :geo1Name and b.geo_2 = :geo2Name " +
-                    "group by b.geo_1, b.geo_1, b.geo_2, b.geo_3, b.apt_name, b.apt_area_pyeong"
+                    "group by b.geo_1, b.geo_2, b.geo_3, b.apt_name"
     )
-    Page<Map<String, Object>> avgApartPriceGroupByGeo2Name(double area, String geo1Name, String geo2Name, LocalDate date, Pageable pageable);
+    Page<AvgpResponse> avgApartPriceGroupByGeo2Name(double area, String geo1Name, String geo2Name, LocalDate date, Pageable pageable);
 
     @Query(
             nativeQuery = true,
-            value = "select b.geo_1, b.geo_2, b.geo_3, b.apt_name, b.apt_area_pyeong, avg(apt_price) as price " +
+            value = "select b.geo_1 as geo1, " +
+                    "b.geo_2 as geo2, " +
+                    "b.geo_3 as geo3, " +
+                    "b.apt_name as aptName, " +
+                    "avg(b.apt_price) as avgp " +
                     "from boo b " +
                     "where b.apt_trans_date >= :date and b.apt_area_pyeong >= :area and b.apt_area_pyeong < :area + 10 and b.geo_1 = :geo1Name and b.geo_2 = :geo2Name and b.geo_3 = :geo3Name " +
-                    "group by b.geo_1, b.geo_1, b.geo_2, b.geo_3, b.apt_name, b.apt_area_pyeong"
+                    "group by b.geo_1, b.geo_2, b.geo_3, b.apt_name"
     )
-    Page<Map<String, Object>> avgApartPriceGroupByGeo3Name(double area, String geo1Name, String geo2Name, String geo3Name, LocalDate date, Pageable pageable);
+    Page<AvgpResponse> avgApartPriceGroupByGeo3Name(double area, String geo1Name, String geo2Name, String geo3Name, LocalDate date, Pageable pageable);
 
     @Query(
             nativeQuery = true,

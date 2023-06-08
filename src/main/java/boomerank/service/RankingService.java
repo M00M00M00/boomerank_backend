@@ -2,6 +2,10 @@ package boomerank.service;
 
 import boomerank.dto.JunseRateDto;
 import boomerank.repository.*;
+import boomerank.repository.queryresponse.AvgpResponse;
+import boomerank.repository.queryresponse.AvgpResponseImpl;
+import boomerank.repository.queryresponse.IncResponse;
+import boomerank.repository.queryresponse.JunseRateResponse;
 import boomerank.response.IncRateAmountDto;
 import boomerank.response.PageResponseDto;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +28,7 @@ public class RankingService {
     }
 
     public PageResponseDto getAvgPriceCountRankWithFilters(String type, int geo, LocalDate date, Pageable pageable) {
-        Page<Map<String, Object>> maps = null;
+        Page<AvgpResponse> maps = null;
         if (type.equals("m")) {
             if (geo == 1) maps = apartRepository.avgPriceGroupByGeo1(date, pageable);
             else if (geo == 2) maps = apartRepository.avgPriceGroupByGeo2(date, pageable);
@@ -35,7 +39,7 @@ public class RankingService {
             else if (geo == 2) maps = junseRepository.avgPriceGroupByGeo2(date, pageable);
             else maps = junseRepository.avgPriceGroupByGeo3(date, pageable);
         }
-        List<Map<String, Object>> retList = getMaps(pageable, maps);
+        List<AvgpResponseImpl> retList = getMaps(pageable, maps, false);
         int totalPages = maps.getTotalPages();
         long totalElements = maps.getTotalElements();
 
@@ -43,7 +47,7 @@ public class RankingService {
     }
 
     public PageResponseDto getAvgPriceCountRankWithNameFilters(String type, int geo, String geo1Name, String geo2Name, String geo3Name, LocalDate date, Pageable pageable) {
-        Page<Map<String, Object>> maps = null;
+        Page<AvgpResponse> maps = null;
         if (type.equals("m")) {
             if (geo2Name == null && geo3Name == null)
                 maps = apartRepository.avgPriceGroupByGeo1Name(geo1Name, date, pageable);
@@ -58,53 +62,37 @@ public class RankingService {
                 maps = junseRepository.avgPriceGroupByGeo2Name(geo1Name, geo2Name, date, pageable);
             else maps = junseRepository.avgPriceGroupByGeo3Name(geo1Name, geo2Name, geo3Name, date, pageable);
         }
-        List<Map<String, Object>> retList = getMaps(pageable, maps);
+        List<AvgpResponseImpl> retList = getMaps(pageable, maps, false);
         int totalPages = maps.getTotalPages();
         long totalElements = maps.getTotalElements();
 
         return new PageResponseDto(totalPages, totalElements, retList);
     }
 
-    private List<Map<String, Object>> getMaps(Pageable pageable, Page<Map<String, Object>> maps) {
+    private List<AvgpResponseImpl> getMaps(Pageable pageable, Page<AvgpResponse> maps, Boolean isPrice) {
         int pageNumber = pageable.getPageNumber();
         int pageSize = pageable.getPageSize();
-        int rank = pageSize * pageNumber + 1;
-        List<Map<String, Object>> collect = new ArrayList<>();
-        for (var map : maps){
-            Map<String, Object> m = new HashMap<>();
-            double avgprice = (double) map.get("avgp");
-            m.put("avgp25", avgprice * 25);
-            m.put("avgp32", avgprice * 32);
-            m.put("rank", rank++);
-            for (var key : map.keySet()){
-                m.put(key, map.get(key));
+        Integer rank = pageSize * pageNumber + 1;
+        List<AvgpResponseImpl> collect = new ArrayList<>();
+        for (AvgpResponse map : maps){
+            if (isPrice == true){
+                collect.add(new AvgpResponseImpl(
+                        rank, map.getGeo1(), map.getGeo2(), map.getGeo3(), map.getAptName(),
+                        map.getAvgp())
+                );
+            } else {
+                collect.add(new AvgpResponseImpl(
+                        rank, map.getGeo1(), map.getGeo2(), map.getGeo3(), map.getAptName(),
+                        map.getAvgp(), map.getTranscount(), map.getAvgp() * 25, map.getAvgp() * 32)
+                );
             }
-            collect.add(m);
+            rank++;
         }
         return collect;
     }
-
-    private List<Map<String, Object>> getMaps2(Pageable pageable, Page<Map<String, Object>> maps) {
-        int pageNumber = pageable.getPageNumber();
-        int pageSize = pageable.getPageSize();
-        int rank = pageSize * pageNumber + 1;
-        List<Map<String, Object>> collect = new ArrayList<>();
-        for (var map : maps){
-            Map<String, Object> m = new HashMap<>();
-            m.put("rank", rank++);
-            for (var key : map.keySet()){
-                m.put(key, map.get(key));
-            }
-            collect.add(m);
-        }
-        return collect;
-    }
-
-
-
 
     public PageResponseDto getApartPriceRankWithFilters(String type, int geo, String geo1Name, String geo2Name, String geo3Name, int area, LocalDate date, Pageable pageable) {
-        Page<Map<String, Object>> maps = null;
+        Page<AvgpResponse> maps = null;
         if (type.equals("m")){
             if (geo == 1) maps = apartRepository.avgApartPriceGroupByGeo1Name(area, geo1Name, date, pageable);
             else if (geo == 2) maps = apartRepository.avgApartPriceGroupByGeo2Name(area, geo1Name, geo2Name, date, pageable);
@@ -116,7 +104,7 @@ public class RankingService {
             else maps = junseRepository.avgApartPriceGroupByGeo3Name(area, geo1Name, geo2Name, geo3Name, date, pageable);
         }
 
-        List<Map<String, Object>> retList = getMaps2(pageable, maps);
+        List<AvgpResponseImpl> retList = getMaps(pageable, maps, true);
         int totalPages = maps.getTotalPages();
         long totalElements = maps.getTotalElements();
 

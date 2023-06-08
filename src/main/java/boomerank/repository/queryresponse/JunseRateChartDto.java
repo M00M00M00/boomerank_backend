@@ -1,4 +1,4 @@
-package boomerank.repository;
+package boomerank.repository.queryresponse;
 
 import lombok.Data;
 import lombok.Getter;
